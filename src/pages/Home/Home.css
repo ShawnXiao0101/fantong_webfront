@@ -1,0 +1,42 @@
+/* 去掉 body 默认 margin/padding，让 fullpage 全屏 */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+  }
+  
+  /* fullpage.js 里的 .section 会被设置成 100vh */
+  .custom-section {
+    /* 背景图全屏铺满 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  
+    /* 保证文字在最上层 */
+    position: relative;
+  }
+  
+  /* 内容容器：水平垂直居中 */
+  .custom-section .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    /* 给文字加阴影，增强可读性 */
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+    max-width: 80%;
+  }
+  
+  /* 标题、段落样式 */
+  .custom-section h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .custom-section p {
+    font-size: 1.5rem;
+  }
+  

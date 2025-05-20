@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
 
+// import QuestionPage from "./pages/QuestionPage";
 function App() {
+  //如果用户是第一次访问，user = null（未登录）。如果用户之前登录过（刷新页面后），user 会从 localStorage 里恢复，不会丢失登录状态
+  const [user, setUser] = useState(localStorage.getItem("username") || null);
+
+  //useEffect 监听 localStorage 并恢复 user 状态
+  useEffect(() => {
+    const storedUser = localStorage.getItem("username");
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Header user={user} setUser={setUser} />
+      <div style={{ marginTop: "60px", padding: "16px" }}>
+        {/* 使用 <Routes> 包裹所有路由 */}
+        <Routes>
+          {/* 使用 element 属性传入要渲染的组件 */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login setUser={setUser} />} />
+        </Routes>
+      </div>
+      <Footer />
+    </Router>
   );
 }
 
